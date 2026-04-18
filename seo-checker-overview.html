@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEO Checker | Extension Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:#141020;
+  color:#e2ddf0;
+  font-size:16px;
+  line-height:1.65;
+  overflow-x:hidden;
+}
+::selection{background:#7851a9;color:#fff}
+
+/* no grain overlay */
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+section{padding:80px 0}
+section+section{border-top:1px solid rgba(120,81,169,0.12)}
+
+h1,h2,h3{font-weight:800;letter-spacing:-0.02em}
+h1{font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.1}
+h2{font-size:clamp(1.7rem,3vw,2.3rem);line-height:1.2;margin-bottom:12px}
+h3{font-size:1.05rem;margin-bottom:6px}
+.mono{font-family:'JetBrains Mono',monospace}
+.muted{color:#8a7fa6;font-size:15px}
+.accent{color:#a87edf}
+.tag{
+  display:inline-block;font-size:12px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:#7851a9;margin-bottom:10px;
+}
+
+/* ── HERO ── */
+.hero{padding:100px 0 80px;text-align:center;position:relative}
+.hero h1 span{
+  background:linear-gradient(135deg,#c8b0e8 0%,#7851a9 40%,#a87edf 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  font-size:clamp(1.05rem,2vw,1.25rem);color:#8a7fa6;max-width:640px;
+  margin:20px auto 0;line-height:1.6;
+}
+.hero-stats{
+  display:flex;justify-content:center;gap:40px;margin-top:44px;flex-wrap:wrap;
+}
+.hero-stat{text-align:center}
+.hero-stat .num{
+  font-family:'JetBrains Mono',monospace;font-size:2.4rem;font-weight:800;
+  background:linear-gradient(135deg,#c8b0e8,#7851a9);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-stat .lbl{font-size:12px;color:#6b6183;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.glow-line{
+  height:1px;max-width:400px;margin:50px auto 0;
+  background:linear-gradient(90deg,transparent,#7851a9,transparent);opacity:0.5;
+}
+
+/* ── WHY SECTION ── */
+.why-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:28px;
+}
+.why-card{
+  background:rgba(120,81,169,0.06);border:1px solid rgba(120,81,169,0.12);
+  border-radius:16px;padding:24px 20px;
+}
+.why-card h3{font-size:14px;color:#c8b0e8;margin-bottom:6px}
+.why-card p{font-size:14px;color:#8a7fa6;line-height:1.6}
+.why-icon{font-size:22px;margin-bottom:10px;display:block}
+
+/* ── STEPS ── */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:32px}
+.step{
+  background:rgba(120,81,169,0.06);border:1px solid rgba(120,81,169,0.12);
+  border-radius:16px;padding:28px 24px;position:relative;overflow:hidden;
+}
+.step::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#7851a9,#c8b0e8);opacity:0.6;
+}
+.step-num{
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;
+  color:#7851a9;background:rgba(120,81,169,0.12);display:inline-block;
+  padding:3px 10px;border-radius:6px;margin-bottom:14px;
+}
+.step h3{color:#e2ddf0;font-size:14px;margin-bottom:8px}
+.step p{font-size:14px;color:#8a7fa6;line-height:1.6}
+
+/* ── ARCHITECTURE ── */
+.arch-grid{
+  display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;
+  align-items:center;gap:0;margin-top:36px;
+}
+.arch-box{
+  background:rgba(120,81,169,0.08);border:1px solid rgba(120,81,169,0.15);
+  border-radius:14px;padding:20px;text-align:center;
+}
+.arch-box h3{font-size:13px;color:#c8b0e8;margin-bottom:6px}
+.arch-box p{font-size:14px;color:#6b6183;line-height:1.5}
+.arch-arrow{
+  text-align:center;font-family:'JetBrains Mono',monospace;
+  font-size:18px;color:#7851a9;opacity:0.5;
+}
+@media(max-width:700px){
+  .arch-grid{grid-template-columns:1fr;gap:8px}
+  .arch-arrow{transform:rotate(90deg)}
+}
+
+/* ── CHECKS TABLE ── */
+.checks-nav{
+  display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px;margin-top:24px;
+}
+.checks-nav button{
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;
+  padding:7px 16px;border-radius:20px;border:1px solid rgba(120,81,169,0.2);
+  background:transparent;color:#8a7fa6;cursor:pointer;transition:all 0.2s;
+}
+.checks-nav button:hover{border-color:#7851a9;color:#c8b0e8}
+.checks-nav button.on{background:#7851a9;color:#fff;border-color:#7851a9}
+
+.cat-section{margin-bottom:28px}
+.cat-header{
+      font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:#7851a9;
+  padding:8px 0;border-bottom:1px solid rgba(120,81,169,0.15);
+  margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.cat-count{
+  font-size:9px;background:rgba(120,81,169,0.15);padding:2px 8px;
+  border-radius:8px;color:#c8b0e8;
+}
+.check-row{
+  display:grid;grid-template-columns:1fr auto;gap:12px;
+  padding:10px 16px;border-radius:10px;margin-bottom:4px;
+  transition:background 0.15s;cursor:default;font-size:14px;
+}
+.check-row:hover{background:rgba(120,81,169,0.06)}
+.check-name{font-weight:600;color:#e2ddf0}
+.check-desc{font-size:13.5px;color:#6b6183;margin-top:2px}
+.check-sev{
+  font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;
+  padding:3px 10px;border-radius:8px;height:fit-content;align-self:center;
+  letter-spacing:0.5px;white-space:nowrap;
+}
+.sev-crit{background:rgba(192,57,43,0.12);color:#e05252}
+.sev-warn{background:rgba(224,154,48,0.12);color:#e09a30}
+.sev-info{background:rgba(39,174,96,0.12);color:#27ae60}
+
+/* ── POPUP MOCKUP ── */
+.mockup-wrap{
+  display:flex;justify-content:center;margin-top:36px;perspective:1000px;
+}
+.mockup{
+  width:440px;background:#f0ebfa;border-radius:16px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(120,81,169,0.2);
+  transform:rotateY(-2deg) rotateX(1deg);
+  font-family:'DM Sans',system-ui,sans-serif;font-size:13px;color:#111;
+}
+.m-header{background:#483065;padding:16px 20px}
+.m-header-label{font-size:8px;font-weight:600;letter-spacing:2px;color:#c8b0e8;text-transform:uppercase;margin-bottom:4px}
+.m-header-url{font-size:12px;font-weight:600;color:#fff}
+.m-filters{display:flex;background:#fff;margin:10px 14px 0;border-radius:20px;border:1px solid #e4dcf5;overflow:hidden}
+.m-filter{flex:1;text-align:center;padding:7px 4px;font-size:10px;font-weight:500;color:#555}
+.m-filter.on{font-weight:700}
+.m-filter.on.crit{color:#c0392b}
+.m-filter.on.warn{color:#b86000}
+.m-filter.on.pass{color:#1a7a3a}
+.m-filter.on.gsc{color:#7851a9}
+.m-tabs{display:flex;gap:3px;margin:8px 14px;background:#fff;border-radius:20px;padding:3px;border:1px solid #e4dcf5;overflow-x:auto}
+.m-tab{padding:5px 11px;font-size:10px;font-weight:500;color:#666;border-radius:14px;white-space:nowrap}
+.m-tab.on{background:#7851a9;color:#fff;font-weight:600}
+.m-results{padding:8px 14px 14px;display:flex;flex-direction:column;gap:8px}
+.m-card{background:#fff;border:1px solid #e4dcf5;border-radius:12px;padding:10px 12px 10px 16px;position:relative}
+.m-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:12px 0 0 12px}
+.m-card.c::before{background:#c0392b}
+.m-card.w::before{background:#e09a30}
+.m-card.p::before{background:#27ae60}
+.m-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.m-card-label{font-size:11px;font-weight:600;color:#111}
+.m-badge{font-size:8px;font-weight:700;padding:2px 8px;border-radius:8px;letter-spacing:0.3px}
+.m-badge.c{background:#fde8e8;color:#c0392b}
+.m-badge.w{background:#fdf3e0;color:#b86000}
+.m-badge.p{background:#edfaf3;color:#1a7a3a}
+.m-detail{font-size:10px;color:#555;line-height:1.5}
+.m-detail span{color:#111;font-weight:500}
+.m-footer{background:#483065;padding:10px;text-align:center;font-size:9px;color:#c8b0e8;letter-spacing:0.3px}
+
+/* ── MOCKUP ROW (side by side) ── */
+.mockup-row{
+  display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:40px;
+}
+.mockup-row .mockup{width:380px;transform:none}
+.mockup-caption{
+  text-align:center;font-size:15px;color:#a89cc0;margin-top:14px;line-height:1.5;
+}
+
+/* ── GSC SECTION ── */
+.gsc-features{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;margin-top:24px;
+}
+.gsc-feat{
+  background:rgba(120,81,169,0.06);border:1px solid rgba(120,81,169,0.12);
+  border-radius:12px;padding:18px 16px;
+}
+.gsc-feat h3{font-size:14px;color:#c8b0e8;margin-bottom:4px}
+.gsc-feat p{font-size:14px;color:#6b6183;line-height:1.5}
+
+/* ── PRO BOX ── */
+.pro-box{
+  margin-top:36px;
+  background:linear-gradient(135deg,rgba(120,81,169,0.1) 0%,rgba(72,48,101,0.15) 100%);
+  border:1px solid rgba(120,81,169,0.25);
+  border-radius:18px;padding:32px 28px;
+}
+.pro-box h3{font-size:18px;color:#c8b0e8;margin-bottom:8px}
+.pro-box .price{
+  font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:800;
+  color:#a87edf;margin:12px 0;
+}
+.pro-list{list-style:none;padding:0;margin:16px 0}
+.pro-list li{
+  font-size:14px;color:#8a7fa6;padding:5px 0 5px 20px;position:relative;line-height:1.5;
+}
+.pro-list li::before{content:'✓';position:absolute;left:0;color:#27ae60;font-weight:700;font-size:12px}
+.pro-note{font-size:14px;color:#6b6183;margin-top:12px;line-height:1.6}
+
+/* ── SEVERITY GUIDE ── */
+.sev-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+.sev-card{border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.sev-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px}
+.sev-card.sc{background:rgba(192,57,43,0.06);border:1px solid rgba(192,57,43,0.15)}
+.sev-card.sc::before{background:#c0392b}
+.sev-card.sw{background:rgba(224,154,48,0.06);border:1px solid rgba(224,154,48,0.15)}
+.sev-card.sw::before{background:#e09a30}
+.sev-card.sp{background:rgba(39,174,96,0.06);border:1px solid rgba(39,174,96,0.15)}
+.sev-card.sp::before{background:#27ae60}
+.sev-card h3{font-size:15px;margin-bottom:6px}
+.sev-card.sc h3{color:#e05252}
+.sev-card.sw h3{color:#e09a30}
+.sev-card.sp h3{color:#27ae60}
+.sev-card p{font-size:14px;color:#8a7fa6;line-height:1.55}
+@media(max-width:600px){.sev-guide{grid-template-columns:1fr}}
+
+/* ── FUTURE PLANS ── */
+.future-card{
+  background:rgba(120,81,169,0.06);border:1px solid rgba(120,81,169,0.2);
+  border-radius:18px;padding:28px 24px;margin-top:28px;position:relative;overflow:hidden;
+}
+.future-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#7851a9,#e09a30,#c8b0e8);
+}
+.future-card h3{font-size:16px;color:#c8b0e8;margin-bottom:8px}
+.future-card p{font-size:14px;color:#8a7fa6;line-height:1.7}
+.pro-badge{
+  display:inline-block;font-size:9px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;background:rgba(120,81,169,0.2);color:#a87edf;
+  padding:3px 10px;border-radius:6px;margin-bottom:12px;
+}
+
+/* ── FOOTER ── */
+.foot{
+  text-align:center;padding:40px 0 50px;font-size:13px;color:#483065;
+  border-top:1px solid rgba(120,81,169,0.1);
+}
+
+/* ── NAV ── */
+.topnav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(12,10,18,0.85);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(120,81,169,0.1);padding:0 28px;
+}
+.topnav-inner{
+  max-width:1080px;margin:0 auto;display:flex;align-items:center;
+  justify-content:space-between;height:52px;
+}
+.topnav-brand{
+  font-weight:800;font-size:15px;
+  background:linear-gradient(135deg,#c8b0e8,#7851a9);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.topnav-links{display:flex;gap:24px}
+.topnav-links a{
+  font-size:13px;font-weight:600;color:#6b6183;text-decoration:none;
+  letter-spacing:0.5px;transition:color 0.2s;
+}
+.topnav-links a:hover{color:#c8b0e8}
+body{padding-top:52px}
+
+/* ── GSC MOCKUP SPECIFIC ── */
+.m-gsc-card{
+  background:#fff;border:1px solid #e4dcf5;border-radius:12px;
+  padding:10px 14px;position:relative;
+}
+.m-gsc-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+  border-radius:12px 0 0 12px;background:#7851a9;
+}
+.m-gsc-label{font-size:10px;font-weight:600;color:#7851a9;margin-bottom:6px}
+.m-gsc-row{display:flex;justify-content:space-between;font-size:10px;color:#555;padding:2px 0}
+.m-gsc-row span{color:#111;font-weight:500}
+.m-gsc-delta-up{color:#1a7a3a;font-weight:600;font-size:10px}
+.m-gsc-delta-down{color:#c0392b;font-weight:600;font-size:10px}
+.m-idx{
+  display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;
+  border:1px solid #e4dcf5;background:#fff;font-size:10px;font-weight:600;
+  border-left:3px solid #27ae60;color:#1a7a3a;margin-bottom:8px;
+}
+.m-range{
+  display:flex;gap:3px;margin:8px 14px;background:#fff;
+  border-radius:20px;padding:3px;border:1px solid #e4dcf5;
+}
+.m-range-btn{padding:4px 8px;font-size:9px;font-weight:500;color:#666;border-radius:12px}
+.m-range-btn.on{background:#7851a9;color:#fff;font-weight:600}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-brand">SEO Checker</div>
+    <div class="topnav-links">
+      <a href="#why">Why</a>
+      <a href="#how">How It Works</a>
+      <a href="#checks">55 Checks</a>
+      <a href="#ui">Popup UI</a>
+      <a href="#pro">Pro</a>
+      <a href="#security">Security</a>
+      <a href="#roadmap">Roadmap</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="tag">Chrome Extension - Manifest V3</div>
+    <h1><span>55 SEO Checks</span><br>Run Instantly on Any Page</h1>
+    <p class="hero-sub">
+      A lightweight Chrome extension that auto-scans every page you visit for SEO issues.
+      Results in the badge, details in the popup. Zero config, zero accounts, fully offline.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">55</div><div class="lbl">Checks</div></div>
+      <div class="hero-stat"><div class="num">8</div><div class="lbl">Categories</div></div>
+      <div class="hero-stat"><div class="num">11</div><div class="lbl">Modules</div></div>
+      <div class="hero-stat"><div class="num">0</div><div class="lbl">Data Sent</div></div>
+    </div>
+    <div class="glow-line"></div>
+  </div>
+</section>
+
+<!-- WHY THIS EXTENSION -->
+<section id="why">
+  <div class="wrap">
+    <div class="tag">Why SEO Checker</div>
+    <h2>Stop Guessing. Start Seeing.</h2>
+    <p class="muted">Most SEO tools need accounts, cloud services, or paid plans. This extension runs entirely in your browser and shows issues the moment a page loads.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <span class="why-icon">&#9889;</span>
+        <h3>Instant results</h3>
+        <p>No manual scans, no waiting. Open any page and the badge already shows issue count. Click to see details.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">&#128274;</span>
+        <h3>100% local</h3>
+        <p>All 55 checks run against the live DOM in your browser. Nothing is sent to any server. Your data stays on your machine.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">&#9881;</span>
+        <h3>Zero config</h3>
+        <p>Install and go. No API keys, no login, no onboarding. It works on every HTTP/HTTPS page automatically.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">&#128200;</span>
+        <h3>Actionable details</h3>
+        <p>Every issue includes what is wrong, why it matters, and exactly how to fix it. No vague scores or arbitrary numbers.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">&#128269;</span>
+        <h3>Deep coverage</h3>
+        <p>Meta, headings, links, images, schema, performance, social, crawlability. 55 checks across 8 categories.</p>
+      </div>
+      <div class="why-card">
+        <span class="why-icon">&#127919;</span>
+        <h3>Built for real work</h3>
+        <p>Whether you are an SEO pro, developer, freelancer, or site owner, you get the same signal: what is broken and how to fix it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="tag">Architecture</div>
+    <h2>How It Works</h2>
+    <p class="muted">Everything runs locally in your browser. No data leaves your machine.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Page Load</h3>
+        <p>When you navigate to any http/https page, Chrome injects the content scripts automatically at <code class="mono" style="font-size:13px;color:#a87edf">document_idle</code>.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Run Checks</h3>
+        <p>11 modules run 55 check functions against the live DOM. Each returns a result with severity, label, and detail.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Store + Badge</h3>
+        <p>Results are stored in <code class="mono" style="font-size:13px;color:#a87edf">chrome.storage.local</code>. The badge on the extension icon shows the issue count.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Popup</h3>
+        <p>Click the icon. Filter by severity (Critical / Warning / Passed), browse by category tab. Every issue shows actionable detail.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:48px;margin-bottom:8px;color:#8a7fa6;font-size:13px;letter-spacing:1px;text-transform:uppercase">Data Flow</h3>
+    <div class="arch-grid">
+      <div class="arch-box">
+        <h3>Content Script</h3>
+        <p>core.js + 11 modules<br>Reads live DOM<br>Runs 55 checks</p>
+      </div>
+      <div class="arch-arrow">&rarr;</div>
+      <div class="arch-box">
+        <h3>Background Worker</h3>
+        <p>Updates badge count<br>Handles HTTP probes<br>GSC API calls</p>
+      </div>
+      <div class="arch-arrow">&rarr;</div>
+      <div class="arch-box">
+        <h3>Popup UI</h3>
+        <p>Reads from storage<br>Filters + tabs<br>Card-based results</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEVERITY -->
+<section>
+  <div class="wrap">
+    <div class="tag">Severity Levels</div>
+    <h2>How Issues Are Classified</h2>
+    <p class="muted">Every check returns one of three severity levels. The badge color reflects the worst issue found.</p>
+    <div class="sev-guide">
+      <div class="sev-card sc">
+        <h3>Critical</h3>
+        <p>Blocks indexing, breaks rendering, or causes major SEO damage. Must fix. Badge turns red.</p>
+      </div>
+      <div class="sev-card sw">
+        <h3>Warning</h3>
+        <p>Hurts rankings, accessibility, or performance but page still functions. Should fix. Badge turns orange.</p>
+      </div>
+      <div class="sev-card sp">
+        <h3>Passed</h3>
+        <p>Check ran and found no issues. Confirms best practices are met. Shown under the green "Passed" filter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALL CHECKS -->
+<section id="checks">
+  <div class="wrap">
+    <div class="tag">All 55 Checks</div>
+    <h2>What It Scans</h2>
+    <p class="muted">Every check runs on every page load. Click a category to filter.</p>
+    <div class="checks-nav" id="checks-nav"></div>
+    <div id="checks-list"></div>
+  </div>
+</section>
+
+<!-- POPUP UI -->
+<section id="ui">
+  <div class="wrap">
+    <div class="tag">User Interface</div>
+    <h2>How Results Are Displayed</h2>
+    <p class="muted">The popup renders results as cards with severity badges, color-coded stripes, and actionable details.</p>
+
+    <!-- Critical state mockup -->
+    <div class="mockup-wrap">
+      <div class="mockup">
+        <div class="m-header">
+          <div class="m-header-label">SEO Checker</div>
+          <div class="m-header-url">example.com/products/widget</div>
+        </div>
+        <div class="m-filters">
+          <div class="m-filter on crit">&bull; Critical <b>3</b></div>
+          <div class="m-filter">&triangle; Warnings <b>12</b></div>
+          <div class="m-filter">&check; Passed <b>40</b></div>
+          <div class="m-filter">GSC</div>
+        </div>
+        <div class="m-tabs">
+          <div class="m-tab">All</div>
+          <div class="m-tab on">Meta</div>
+          <div class="m-tab">Content</div>
+          <div class="m-tab">Technical</div>
+          <div class="m-tab">Perf</div>
+          <div class="m-tab">Social</div>
+          <div class="m-tab">Schema</div>
+          <div class="m-tab">Media</div>
+          <div class="m-tab">Links</div>
+        </div>
+        <div class="m-results">
+          <div class="m-card c">
+            <div class="m-card-top">
+              <div class="m-card-label">Meta Description</div>
+              <div class="m-badge c">&bull; CRITICAL</div>
+            </div>
+            <div class="m-detail">
+              <span>Status:</span> Missing<br>
+              <span>Issue:</span> No meta description tag found<br>
+              <span>Action:</span> Add a description between 130-155 characters
+            </div>
+          </div>
+          <div class="m-card c">
+            <div class="m-card-top">
+              <div class="m-card-label">Cross-Domain Canonical</div>
+              <div class="m-badge c">&bull; CRITICAL</div>
+            </div>
+            <div class="m-detail">
+              <span>Canonical points to:</span> other-domain.com<br>
+              <span>Current domain:</span> example.com<br>
+              This tells Google to ignore this page entirely<br>
+              <span>Fix:</span> Update canonical to point to your own domain
+            </div>
+          </div>
+        </div>
+        <div class="m-footer">SEO Checker v1.0</div>
+      </div>
+    </div>
+    <p class="mockup-caption">Critical view: red stripe, severity badge, actionable detail per card</p>
+
+    <!-- Warning + Passed side by side -->
+    <div class="mockup-row">
+      <div>
+        <div class="mockup">
+          <div class="m-header">
+            <div class="m-header-label">SEO Checker</div>
+            <div class="m-header-url">example.com/blog/seo-guide</div>
+          </div>
+          <div class="m-filters">
+            <div class="m-filter">&bull; Critical <b>0</b></div>
+            <div class="m-filter on warn">&triangle; Warnings <b>8</b></div>
+            <div class="m-filter">&check; Passed <b>47</b></div>
+            <div class="m-filter">GSC</div>
+          </div>
+          <div class="m-tabs">
+            <div class="m-tab on">All</div>
+            <div class="m-tab">Meta</div>
+            <div class="m-tab">Content</div>
+            <div class="m-tab">Perf</div>
+          </div>
+          <div class="m-results">
+            <div class="m-card w">
+              <div class="m-card-top">
+                <div class="m-card-label">Heading Hierarchy</div>
+                <div class="m-badge w">&triangle; WARNING</div>
+              </div>
+              <div class="m-detail">
+                6 headings scanned, 1 issue found<br>
+                <span>Outline:</span><br>
+                &nbsp;&nbsp;H1: Complete SEO Guide<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;H2: Getting Started<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H4: Tools &#8592; skipped H3
+              </div>
+            </div>
+            <div class="m-card w">
+              <div class="m-card-top">
+                <div class="m-card-label">Render Blocking</div>
+                <div class="m-badge w">&triangle; WARNING</div>
+              </div>
+              <div class="m-detail">
+                3 render-blocking resources in &lt;head&gt;<br>
+                2 blocking CSS, 1 blocking JS<br>
+                <span>Fix:</span> Add async/defer to scripts
+              </div>
+            </div>
+          </div>
+          <div class="m-footer">SEO Checker v1.0</div>
+        </div>
+        <p class="mockup-caption">Warning view with heading tree outline</p>
+      </div>
+
+      <div>
+        <div class="mockup">
+          <div class="m-header">
+            <div class="m-header-label">SEO Checker</div>
+            <div class="m-header-url">well-built.com/</div>
+          </div>
+          <div class="m-filters">
+            <div class="m-filter">&bull; Critical <b>0</b></div>
+            <div class="m-filter">&triangle; Warnings <b>2</b></div>
+            <div class="m-filter on pass">&check; Passed <b>53</b></div>
+            <div class="m-filter">GSC</div>
+          </div>
+          <div class="m-tabs">
+            <div class="m-tab on">All</div>
+            <div class="m-tab">Meta</div>
+            <div class="m-tab">Technical</div>
+          </div>
+          <div class="m-results">
+            <div class="m-card p">
+              <div class="m-card-top">
+                <div class="m-card-label">Meta Title</div>
+                <div class="m-badge p">&check; PASSED</div>
+              </div>
+              <div class="m-detail">
+                <span>Title:</span> "Well Built - Modern Web Development"<br>
+                <span>Length:</span> 38 characters<br>
+                <span>Brand separator:</span> Found
+              </div>
+            </div>
+            <div class="m-card p">
+              <div class="m-card-top">
+                <div class="m-card-label">Robots.txt</div>
+                <div class="m-badge p">&check; PASSED</div>
+              </div>
+              <div class="m-detail">
+                <span>Status:</span> Found and valid<br>
+                Has User-agent, Disallow/Allow rules<br>
+                Sitemap directive found
+              </div>
+            </div>
+            <div class="m-card p">
+              <div class="m-card-top">
+                <div class="m-card-label">JSON-LD Schema</div>
+                <div class="m-badge p">&check; PASSED</div>
+              </div>
+              <div class="m-detail">
+                2 schema blocks found<br>
+                Types: Organization, WebPage<br>
+                Valid JSON, @context present
+              </div>
+            </div>
+          </div>
+          <div class="m-footer">SEO Checker v1.0</div>
+        </div>
+        <p class="mockup-caption">Passed view: green stripes, all checks cleared</p>
+      </div>
+    </div>
+
+    <!-- GSC mockup -->
+    <h3 style="text-align:center;margin-top:48px;color:#c8b0e8;font-size:14px">Search Console View (Pro)</h3>
+    <div class="mockup-wrap" style="margin-top:16px">
+      <div class="mockup">
+        <div class="m-header">
+          <div class="m-header-label">SEO Checker</div>
+          <div class="m-header-url">example.com/blog/seo-guide</div>
+        </div>
+        <div class="m-filters">
+          <div class="m-filter">&bull; Critical <b>0</b></div>
+          <div class="m-filter">&triangle; Warnings <b>4</b></div>
+          <div class="m-filter">&check; Passed <b>51</b></div>
+          <div class="m-filter on gsc">GSC</div>
+        </div>
+        <div style="padding:8px 14px;display:flex;flex-direction:column;gap:8px">
+          <div class="m-range">
+            <span class="m-range-btn">7d</span>
+            <span class="m-range-btn">28d</span>
+            <span class="m-range-btn on">3mo</span>
+            <span class="m-range-btn">6mo</span>
+            <span class="m-range-btn">12mo</span>
+            <span class="m-range-btn">16mo</span>
+          </div>
+          <div class="m-idx">Indexed - Last crawl: Apr 12, 2026</div>
+          <div class="m-card p">
+            <div class="m-card-top">
+              <div class="m-card-label">Current (3mo)</div>
+            </div>
+            <div class="m-detail">
+              <span>Property:</span> sc-domain:example.com<br>
+              <span>Page URL:</span> /blog/seo-guide<br>
+              <span>Clicks:</span> 1,247<br>
+              <span>Impressions:</span> 18,432<br>
+              <span>CTR:</span> 6.8%<br>
+              <span>Avg position:</span> 12.4
+            </div>
+          </div>
+          <div class="m-card p">
+            <div class="m-card-top">
+              <div class="m-card-label">3mo vs prev period</div>
+              <div style="display:flex;gap:4px">
+                <span style="font-size:8px;font-weight:700;padding:2px 6px;border-radius:6px;background:#edfaf3;color:#1a7a3a">&#8593; Clicks</span>
+                <span style="font-size:8px;font-weight:700;padding:2px 6px;border-radius:6px;background:#edfaf3;color:#1a7a3a">&#8593; Impr</span>
+              </div>
+            </div>
+            <div class="m-detail">
+              <span>Clicks:</span> 1,247 <span style="color:#1a7a3a;font-weight:600">&#8593; 23%</span><br>
+              <span>Impressions:</span> 18,432 <span style="color:#1a7a3a;font-weight:600">&#8593; 14%</span><br>
+              <span>CTR:</span> 6.8% <span style="color:#1a7a3a;font-weight:600">&#8593; 0.8pp</span><br>
+              <span>Avg position:</span> 12.4 <span style="color:#c0392b;font-weight:600">&#8595; 1.2</span>
+            </div>
+          </div>
+        </div>
+        <div class="m-footer">SEO Checker v1.0</div>
+      </div>
+    </div>
+    <p class="mockup-caption">GSC Pro view: live Search Console data with period comparison and delta indicators</p>
+
+    <!-- GSC Queries mockup -->
+    <div class="mockup-wrap" style="margin-top:28px">
+      <div class="mockup">
+        <div class="m-header">
+          <div class="m-header-label">SEO Checker</div>
+          <div class="m-header-url">example.com/blog/seo-guide</div>
+        </div>
+        <div class="m-filters">
+          <div class="m-filter">&bull; Critical <b>0</b></div>
+          <div class="m-filter">&triangle; Warnings <b>4</b></div>
+          <div class="m-filter">&check; Passed <b>51</b></div>
+          <div class="m-filter on gsc">GSC</div>
+        </div>
+        <div style="padding:8px 14px;display:flex;flex-direction:column;gap:8px">
+
+          <!-- Expanded query card -->
+          <div style="background:#faf8ff;border:0.5px solid #e4dcf5;border-radius:12px;padding:10px 14px;position:relative;overflow:hidden">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:#7851a9;border-radius:12px 0 0 12px"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <span style="font-size:11px;font-weight:600;color:#7851a9">Queries (3mo)</span>
+              <span style="font-size:9px;color:#7851a9;font-weight:600">&#9660;</span>
+            </div>
+
+            <div style="display:flex;gap:4px;margin-bottom:8px">
+              <span style="font-size:9px;padding:3px 8px;border-radius:8px;background:#7851a9;color:#fff;font-weight:600">Clicks</span>
+              <span style="font-size:9px;padding:3px 8px;border-radius:8px;border:0.5px solid #e4dcf5;color:#666;font-weight:500">Impressions</span>
+            </div>
+
+            <div style="font-size:9px;font-weight:600;color:#483065;text-transform:uppercase;letter-spacing:0.5px;padding:4px 0 2px">Top 10 by Clicks (42 total queries)</div>
+            <table style="width:100%;border-collapse:collapse;font-size:10px">
+              <thead>
+                <tr>
+                  <th style="text-align:left;font-size:8px;font-weight:600;color:#7851a9;padding:3px 4px;border-bottom:0.5px solid #e4dcf5;text-transform:uppercase;letter-spacing:0.5px">Query</th>
+                  <th style="text-align:right;font-size:8px;font-weight:600;color:#7851a9;padding:3px 4px;border-bottom:0.5px solid #e4dcf5;text-transform:uppercase;letter-spacing:0.5px">Clicks</th>
+                  <th style="text-align:right;font-size:8px;font-weight:600;color:#7851a9;padding:3px 4px;border-bottom:0.5px solid #e4dcf5;text-transform:uppercase;letter-spacing:0.5px">Impr</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style="padding:3px 4px;color:#111;font-weight:500;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">seo checklist 2026</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">312</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">4,210</td></tr>
+                <tr><td style="padding:3px 4px;color:#111;font-weight:500">on page seo guide</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">198</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">2,870</td></tr>
+                <tr><td style="padding:3px 4px;color:#111;font-weight:500">meta description length</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">145</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">1,930</td></tr>
+                <tr><td style="padding:3px 4px;color:#111;font-weight:500">heading hierarchy seo</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">87</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">1,120</td></tr>
+                <tr><td style="padding:3px 4px;color:#111;font-weight:500">canonical tag checker</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">64</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">890</td></tr>
+              </tbody>
+            </table>
+
+            <div style="font-size:9px;font-weight:600;color:#483065;text-transform:uppercase;letter-spacing:0.5px;padding:8px 0 2px">Bottom 10 by Clicks</div>
+            <table style="width:100%;border-collapse:collapse;font-size:10px">
+              <thead>
+                <tr>
+                  <th style="text-align:left;font-size:8px;font-weight:600;color:#7851a9;padding:3px 4px;border-bottom:0.5px solid #e4dcf5;text-transform:uppercase;letter-spacing:0.5px">Query</th>
+                  <th style="text-align:right;font-size:8px;font-weight:600;color:#7851a9;padding:3px 4px;border-bottom:0.5px solid #e4dcf5;text-transform:uppercase;letter-spacing:0.5px">Clicks</th>
+                  <th style="text-align:right;font-size:8px;font-weight:600;color:#7851a9;padding:3px 4px;border-bottom:0.5px solid #e4dcf5;text-transform:uppercase;letter-spacing:0.5px">Impr</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style="padding:3px 4px;color:#111;font-weight:500">seo audit free tool</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">2</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">340</td></tr>
+                <tr><td style="padding:3px 4px;color:#111;font-weight:500">check meta tags online</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">1</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">280</td></tr>
+                <tr><td style="padding:3px 4px;color:#111;font-weight:500">robots.txt validator</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">1</td><td style="text-align:right;padding:3px 4px;color:#555;font-weight:500">190</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Collapsed comparison query card -->
+          <div style="background:#faf8ff;border:0.5px solid #e4dcf5;border-radius:12px;padding:10px 14px;position:relative;overflow:hidden">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:#7851a9;border-radius:12px 0 0 12px"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:11px;font-weight:600;color:#7851a9">Queries: 3mo vs prev period</span>
+              <span style="font-size:9px;color:#7851a9;font-weight:600">&#9654;</span>
+            </div>
+          </div>
+
+          <!-- Collapsed YoY query card -->
+          <div style="background:#faf8ff;border:0.5px solid #e4dcf5;border-radius:12px;padding:10px 14px;position:relative;overflow:hidden">
+            <div style="position:absolute;left:0;top:0;bottom:0;width:4px;background:#7851a9;border-radius:12px 0 0 12px"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:11px;font-weight:600;color:#7851a9">Queries: 3mo year over year</span>
+              <span style="font-size:9px;color:#7851a9;font-weight:600">&#9654;</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="m-footer">SEO Checker v1.0</div>
+      </div>
+    </div>
+    <p class="mockup-caption">Keyword tables: top 10 and bottom 10 queries with expandable comparison cards</p>
+  </div>
+</section>
+
+<!-- TOAST -->
+<section>
+  <div class="wrap">
+    <div class="tag">On-Page Toast</div>
+    <h2>Instant Notification</h2>
+    <p class="muted">A small toast appears in the bottom-right corner after every page load, showing the issue count at a glance.</p>
+    <div style="display:flex;justify-content:center;margin-top:32px">
+      <div style="
+        display:flex;align-items:center;gap:10px;padding:12px 16px;
+        background:#1a1a1a;border:1px solid #333;border-left:4px solid #e05252;
+        border-radius:8px;font-size:14px;color:#e8e8e8;max-width:360px;
+        box-shadow:0 4px 20px rgba(0,0,0,0.4);
+        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      ">
+        <span style="
+          display:flex;align-items:center;justify-content:center;
+          width:20px;height:20px;min-width:20px;border-radius:50%;
+          background:#e05252;color:#fff;font-size:12px;font-weight:700;
+        ">!</span>
+        <span style="flex:1">
+          <strong style="color:#fff;font-weight:600">11 SEO issues</strong>
+          . 3 critical, 8 warnings
+        </span>
+        <span style="font-size:12px;color:#888;white-space:nowrap">View details &rarr;</span>
+      </div>
+    </div>
+    <p class="mockup-caption" style="margin-top:14px">Clicking the toast flashes the badge. Auto-dismisses after 5 seconds.</p>
+  </div>
+</section>
+
+<!-- PRO / GSC -->
+<section id="pro">
+  <div class="wrap">
+    <div class="tag">Pro Feature</div>
+    <h2>Google Search Console Integration</h2>
+    <p class="muted">Optional Pro upgrade pulls live Search Console data for any page under your verified GSC property, directly inside the popup.</p>
+
+    <div class="gsc-features">
+      <div class="gsc-feat">
+        <h3>Clicks &amp; Impressions</h3>
+        <p>Current period stats with delta comparison to previous period and year-over-year.</p>
+      </div>
+      <div class="gsc-feat">
+        <h3>CTR &amp; Position</h3>
+        <p>Click-through rate and average position with trend arrows showing gains or drops.</p>
+      </div>
+      <div class="gsc-feat">
+        <h3>Index Status</h3>
+        <p>URL Inspection API shows whether the page is indexed, crawl date, and coverage state.</p>
+      </div>
+      <div class="gsc-feat">
+        <h3>Top 10 &amp; Dropped 10</h3>
+        <p>Keyword tables sorted by clicks or impressions. See which queries drive traffic and which are falling.</p>
+      </div>
+      <div class="gsc-feat">
+        <h3>Period Comparison</h3>
+        <p>Every metric shows change vs previous period and year-over-year with percentage deltas.</p>
+      </div>
+      <div class="gsc-feat">
+        <h3>Country Filter</h3>
+        <p>Searchable dropdown filters all GSC data by country. Selection remembered per domain.</p>
+      </div>
+      <div class="gsc-feat">
+        <h3>6 Date Ranges</h3>
+        <p>From 7 days to 16 months. Each range auto-calculates prev period and YoY comparison.</p>
+      </div>
+      <div class="gsc-feat">
+        <h3>One-Click Auth</h3>
+        <p>Uses Chrome identity API. Sign in once with Google. No API keys, no setup.</p>
+      </div>
+    </div>
+
+    <div class="pro-box">
+      <h3>What you get with Pro</h3>
+      <div class="price">$7/month per email</div>
+      <ul class="pro-list">
+        <li>Live clicks, impressions, CTR, and avg position for every page</li>
+        <li>Period-over-period and year-over-year comparison with delta arrows</li>
+        <li>Top 10 and dropped 10 keywords in table view</li>
+        <li>Index status from Google URL Inspection API</li>
+        <li>Country-level filtering across all GSC data</li>
+        <li>6 date range presets (7d to 16mo)</li>
+        <li>All 55 free checks remain free forever</li>
+      </ul>
+      <p class="pro-note">
+        Only 100 seats per month available. 3-day refund if not satisfied.
+        Full source code is also available for purchase. Build on top of it, white-label it, or run it internally for your team.
+      </p>
+    </div>
+
+    <h3 style="margin-top:48px;margin-bottom:8px;color:#8a7fa6;font-size:13px;letter-spacing:1px;text-transform:uppercase">Who benefits from Pro</h3>
+    <div class="why-grid" style="margin-top:16px">
+      <div class="why-card">
+        <h3>SEO professionals</h3>
+        <p>See GSC data for any client page without switching to the Search Console dashboard. Spot drops instantly.</p>
+      </div>
+      <div class="why-card">
+        <h3>Freelancers</h3>
+        <p>Check potential clients' search performance before pitching. Know what is working and what is not.</p>
+      </div>
+      <div class="why-card">
+        <h3>Site owners</h3>
+        <p>Monitor your own pages' search presence directly from the browser. No dashboards to learn.</p>
+      </div>
+      <div class="why-card">
+        <h3>Content teams</h3>
+        <p>See which keywords bring traffic to each page. Know what content to update based on real data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERMISSIONS -->
+<section>
+  <div class="wrap">
+    <div class="tag">Security</div>
+    <h2>Minimal Permissions</h2>
+    <p class="muted">The extension requests only what it needs. No data leaves your browser except optional GSC API calls.</p>
+    <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+      <div class="arch-box">
+        <h3 style="font-size:13px">Required</h3>
+        <p><code class="mono" style="font-size:13px;color:#a87edf">storage</code>: save check results locally<br>
+        <code class="mono" style="font-size:13px;color:#a87edf">tabs</code>: read active tab URL for badge<br>
+        <code class="mono" style="font-size:13px;color:#a87edf">identity</code>: Google OAuth for GSC</p>
+      </div>
+      <div class="arch-box">
+        <h3 style="font-size:13px">Optional (user-granted)</h3>
+        <p><code class="mono" style="font-size:13px;color:#a87edf">host_permissions</code>: only for HTTP link probe<br>
+        User must click "Allow" explicitly<br>
+        Never auto-requested</p>
+      </div>
+      <div class="arch-box">
+        <h3 style="font-size:13px">Never Used</h3>
+        <p>No <code class="mono" style="font-size:13px;color:#a87edf">activeTab</code>, no <code class="mono" style="font-size:13px;color:#a87edf">scripting</code><br>
+        No <code class="mono" style="font-size:13px;color:#a87edf">webRequest</code>, no remote scripts<br>
+        No eval(), no innerHTML with data</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section id="security">
+  <div class="wrap">
+    <div class="tag">Security</div>
+    <h2>Built Secure by Default</h2>
+    <p class="muted">Every line of code follows strict security rules. These are not optional guidelines, they are enforced throughout the codebase.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:32px">
+      <div class="step">
+        <div class="step-num">XSS Prevention</div>
+        <h3>Zero innerHTML with Dynamic Data</h3>
+        <p>All UI rendering uses <code class="mono" style="font-size:13px;color:#a87edf">.textContent</code> and <code class="mono" style="font-size:13px;color:#a87edf">createElement</code>. No page data ever touches innerHTML.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">No Dynamic Code</div>
+        <h3>No eval(), No new Function()</h3>
+        <p>The extension never executes strings as code. CSP is never relaxed. No unsafe-inline or unsafe-eval.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Input Validation</div>
+        <h3>Nothing from the Page Is Trusted</h3>
+        <p>All strings are type-checked, capped in length (URLs: 500, labels: 80, details: 400), and sanitized before use.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Storage Safety</div>
+        <h3>Capped, Typed, Static Keys</h3>
+        <p>Max 100 results. Hardcoded storage keys. No raw page content, no cookies, no PII ever stored.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Message Security</div>
+        <h3>Validated Both Directions</h3>
+        <p>Background verifies sender.id on every message. Types whitelisted with a Set. Unknown types silently rejected.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">No Remote Code</div>
+        <h3>100% Local JavaScript</h3>
+        <p>All scripts bundled locally. No CDNs, no remote fetches for code. Only outbound calls: optional link probes and GSC API.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Least Privilege</div>
+        <h3>Minimum Permissions</h3>
+        <p>Only 3 permissions. Host access for link probes is optional and user-granted. No broad permissions ever.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">Data Privacy</div>
+        <h3>Nothing Leaves Your Browser</h3>
+        <p>All checks run locally. No analytics, no telemetry, no tracking. GSC is opt-in and calls Google's API directly.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:28px;background:rgba(120,81,169,0.06);border:1px solid rgba(120,81,169,0.12);border-radius:14px;padding:20px 24px">
+      <h3 style="font-size:15px;color:#c8b0e8;margin-bottom:8px">Strict Mode Everywhere</h3>
+      <p style="font-size:14px;color:#8a7fa6;line-height:1.6">
+        Every JavaScript file starts with <code class="mono" style="font-size:13px;color:#a87edf">'use strict'</code>.
+        No implicit globals, no silent type coercion, no scope leaks.
+        Combined with <code class="mono" style="font-size:13px;color:#a87edf">const</code> by default and <code class="mono" style="font-size:13px;color:#a87edf">===</code> everywhere.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="wrap">
+    <div class="tag">Roadmap</div>
+    <h2>What Is Coming Next</h2>
+    <p class="muted">The extension is actively developed. Here is what is planned.</p>
+
+    <div class="future-card">
+      <div class="pro-badge">Pro Only</div>
+      <h3>One-Click SEO Report</h3>
+      <p>
+        Generate a clean PDF report for the page you are currently viewing. One click inside the popup,
+        and it pulls all 55 check results - critical issues, warnings, and passed checks - into a
+        professional document you can share, save, or send to a client.
+      </p>
+      <p style="margin-top:12px">
+        The report will include: a severity summary, categorized issues with fix recommendations,
+        what the page is doing well, and if GSC is connected, real search performance data
+        (clicks, impressions, top keywords, index status) for that specific URL.
+      </p>
+      <p style="margin-top:12px">
+        Perfect for freelancers who want to show a client what is wrong with a specific landing page,
+        or for in-house teams who need to document page-level audits without screenshots.
+      </p>
+      <p style="margin-top:12px;color:#a87edf;font-weight:600">
+        This feature will be exclusive to Pro subscribers.
+      </p>
+    </div>
+
+    <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+      <div class="why-card">
+        <h3>More checks</h3>
+        <p>Expanding coverage with new modules. Community suggestions welcome via email.</p>
+      </div>
+      <div class="why-card">
+        <h3>Better UI</h3>
+        <p>Continuous improvements to readability, card layouts, and the overall popup experience.</p>
+      </div>
+      <div class="why-card">
+        <h3>Export options</h3>
+        <p>Save check results as CSV or JSON for reporting and tracking over time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">SEO Checker v1.0 - 55 checks - 11 modules - Manifest V3</div>
+</footer>
+
+<script>
+const CHECKS = [
+  {cat:'meta',name:'Meta Title',desc:'Checks existence, length (30-60 chars), duplicate tags, and brand separator',sev:'crit/warn/pass'},
+  {cat:'meta',name:'Meta Description',desc:'Checks existence, length (130-155 chars), duplicates, and multi-sentence detection',sev:'crit/warn/pass'},
+  {cat:'meta',name:'Canonical URL',desc:'Validates exactly one canonical tag with a valid absolute URL',sev:'crit/warn/pass'},
+  {cat:'meta',name:'Noindex Detection',desc:'Flags any noindex directive that would block search indexing',sev:'crit/pass'},
+  {cat:'meta',name:'Robots Directives',desc:'Scans all meta robots tags for nofollow, noarchive, nosnippet',sev:'warn/pass'},
+  {cat:'meta',name:'Meta Consistency',desc:'Cross-checks title vs og:title vs twitter:title for mismatches',sev:'warn/pass'},
+  {cat:'meta',name:'Cross-Domain Canonical',desc:'Flags when canonical points to a different domain entirely',sev:'crit/pass'},
+
+  {cat:'content',name:'H1 Tag',desc:'Verifies exactly one meaningful H1 exists',sev:'crit/warn/pass'},
+  {cat:'content',name:'Heading Hierarchy',desc:'Visual tree outline showing heading order with skip markers',sev:'warn/pass'},
+  {cat:'content',name:'Empty Headings',desc:'Finds heading tags with no visible text content',sev:'warn/pass'},
+  {cat:'content',name:'Title vs H1',desc:'Compares page title and H1 text for duplication or mismatch',sev:'warn/pass'},
+  {cat:'content',name:'Keyword Density',desc:'Top unigrams, bigrams, trigrams. Detects stuffing above 14%',sev:'warn/pass'},
+  {cat:'content',name:'Word Count',desc:'Flags thin content pages with fewer than 48 words',sev:'warn/pass'},
+  {cat:'content',name:'Hidden Text',desc:'Detects text hidden via CSS (display:none, 0 opacity, off-screen)',sev:'warn/pass'},
+
+  {cat:'technical',name:'Viewport Meta',desc:'Checks for meta viewport tag and restrictive user-scalable=no',sev:'crit/warn/pass'},
+  {cat:'technical',name:'Charset',desc:'Verifies meta charset is declared in first 1024 bytes',sev:'warn/pass'},
+  {cat:'technical',name:'HTML Lang',desc:'Checks html has a valid BCP 47 language code',sev:'crit/pass'},
+  {cat:'technical',name:'Favicon',desc:'Checks for favicon link tag or /favicon.ico',sev:'warn/pass'},
+  {cat:'technical',name:'URL Length',desc:'Flags URLs over 100 characters',sev:'warn/pass'},
+  {cat:'technical',name:'URL Issues',desc:'Detects underscores, uppercase, special chars ($, @, !, etc.), double slashes',sev:'warn/pass'},
+  {cat:'technical',name:'Hreflang',desc:'Validates hreflang: x-default, self-reference, duplicates, absolute URLs',sev:'warn/pass'},
+  {cat:'technical',name:'Mixed Content',desc:'Detects HTTP resources loaded on HTTPS pages',sev:'warn/pass'},
+  {cat:'technical',name:'DOM Size',desc:'Counts nodes, max depth, max children per element. Flags at 1500+ or 60+ children',sev:'crit/warn/pass'},
+  {cat:'technical',name:'Text/HTML Ratio',desc:'Ratio of visible text to total HTML size. Flags below 10%',sev:'warn/pass'},
+  {cat:'technical',name:'Third-Party Scripts',desc:'Counts external scripts and reports their domains',sev:'warn/pass'},
+  {cat:'technical',name:'HTTPS',desc:'Verifies page is served over HTTPS',sev:'crit/pass'},
+  {cat:'technical',name:'Deprecated HTML',desc:'Scans for font, center, marquee, blink, frame and other deprecated tags',sev:'warn/pass'},
+  {cat:'technical',name:'Iframes',desc:'Counts visible iframes. 3-5 = warning, 6+ = critical',sev:'crit/warn/pass'},
+  {cat:'technical',name:'Robots.txt',desc:'Fetches /robots.txt. Checks existence, content, User-agent, Disallow rules',sev:'crit/pass'},
+  {cat:'technical',name:'Sitemap',desc:'Finds sitemap via robots.txt or common paths. Validates XML',sev:'crit/pass'},
+  {cat:'technical',name:'llms.txt',desc:'Checks if /llms.txt exists for AI crawler preferences',sev:'warn/pass'},
+
+  {cat:'performance',name:'LCP Hints',desc:'Checks for preload hints, fetchpriority, and blocking scripts',sev:'warn/pass'},
+  {cat:'performance',name:'Page Speed',desc:'TTFB, DOM timing, page weight breakdown by resource type',sev:'crit/warn/pass'},
+  {cat:'performance',name:'Font Display',desc:'Checks font-face and Google Fonts for font-display: swap',sev:'warn/pass'},
+  {cat:'performance',name:'Render Blocking',desc:'Sync scripts and stylesheets in head that block first render',sev:'crit/warn/pass'},
+
+  {cat:'social',name:'Open Graph',desc:'Validates og:title, og:description, og:image, og:url, og:type',sev:'warn/pass'},
+  {cat:'social',name:'Twitter Cards',desc:'Checks twitter:card, twitter:title, twitter:description, twitter:image',sev:'warn/pass'},
+  {cat:'social',name:'OG Image Dimensions',desc:'Checks og:image is absolute and meets minimum dimensions',sev:'warn/pass'},
+
+  {cat:'structured',name:'JSON-LD Schema',desc:'Detects JSON-LD blocks, validates parsing, checks @context',sev:'warn/pass'},
+  {cat:'structured',name:'Breadcrumb Schema',desc:'Checks for BreadcrumbList in JSON-LD or Microdata',sev:'warn/pass'},
+
+  {cat:'media',name:'Image Alt Text',desc:'Flags missing alt attributes and generic alt text like "image"',sev:'crit/warn/pass'},
+  {cat:'media',name:'Image Dimensions (CLS)',desc:'Checks images have explicit width and height for layout stability',sev:'warn/pass'},
+  {cat:'media',name:'Image Formats',desc:'Reports format breakdown. Warns if no modern formats (WebP/AVIF)',sev:'warn/pass'},
+  {cat:'media',name:'Video & Audio',desc:'Checks video/audio for title and captions track',sev:'warn/pass'},
+  {cat:'media',name:'Lazy Above Fold',desc:'Flags images with loading="lazy" in the initial viewport',sev:'warn/pass'},
+  {cat:'media',name:'Oversized Images',desc:'Natural size 2.5x+ larger than display size. Wasted bandwidth',sev:'warn/pass'},
+  {cat:'media',name:'Aspect Ratio',desc:'Natural vs rendered ratio. Flags distortion beyond 5%',sev:'crit/warn/pass'},
+  {cat:'media',name:'Low Resolution',desc:'Natural resolution below display * DPR. Appears blurry on HiDPI',sev:'crit/warn/pass'},
+  {cat:'media',name:'Broken Images',desc:'Detects images that failed to load (complete but naturalWidth 0)',sev:'crit/pass'},
+
+  {cat:'links',name:'Link Structure',desc:'Internal/external ratio, noopener, javascript: href detection',sev:'warn/pass'},
+  {cat:'links',name:'Duplicate Links',desc:'Multiple links to the exact same URL on one page',sev:'warn/pass'},
+  {cat:'links',name:'Broken Anchors',desc:'Anchor links (#fragment) pointing to non-existent IDs',sev:'warn/pass'},
+  {cat:'links',name:'Nofollow Internal',desc:'Internal links with rel="nofollow" blocking PageRank flow',sev:'warn/pass'},
+  {cat:'links',name:'Empty Anchor Text',desc:'Links with no text or aria-label. Bad for SEO and accessibility',sev:'warn/pass'},
+  {cat:'links',name:'Link Count',desc:'Total links. Flags pages with fewer than 4 internal links',sev:'warn/pass'},
+];
+
+const CAT_LABELS = {
+  all:'All',meta:'Meta',content:'Content',technical:'Technical',
+  performance:'Perf',social:'Social',structured:'Schema',media:'Media',links:'Links'
+};
+const CAT_ORDER = ['all','meta','content','technical','performance','social','structured','media','links'];
+let activeCat = 'all';
+
+function renderNav() {
+  const nav = document.getElementById('checks-nav');
+  nav.innerHTML = '';
+  CAT_ORDER.forEach(key => {
+    const btn = document.createElement('button');
+    const count = key === 'all' ? CHECKS.length : CHECKS.filter(c => c.cat === key).length;
+    btn.textContent = CAT_LABELS[key] + ' (' + count + ')';
+    btn.className = key === activeCat ? 'on' : '';
+    btn.onclick = () => { activeCat = key; renderNav(); renderChecks(); };
+    nav.appendChild(btn);
+  });
+}
+
+function renderChecks() {
+  const el = document.getElementById('checks-list');
+  el.innerHTML = '';
+  const filtered = activeCat === 'all' ? CHECKS : CHECKS.filter(c => c.cat === activeCat);
+  const groups = {};
+  filtered.forEach(c => { if (!groups[c.cat]) groups[c.cat] = []; groups[c.cat].push(c); });
+
+  Object.keys(groups).forEach(cat => {
+    const section = document.createElement('div');
+    section.className = 'cat-section';
+    const header = document.createElement('div');
+    header.className = 'cat-header';
+    header.innerHTML = CAT_LABELS[cat] + ' <span class="cat-count">' + groups[cat].length + '</span>';
+    section.appendChild(header);
+
+    groups[cat].forEach(check => {
+      const row = document.createElement('div');
+      row.className = 'check-row';
+      const left = document.createElement('div');
+      const name = document.createElement('div');
+      name.className = 'check-name';
+      name.textContent = check.name;
+      const desc = document.createElement('div');
+      desc.className = 'check-desc';
+      desc.textContent = check.desc;
+      left.appendChild(name);
+      left.appendChild(desc);
+      const sevs = check.sev.split('/');
+      const worst = sevs[0];
+      const badge = document.createElement('div');
+      badge.className = 'check-sev ' + (worst === 'crit' ? 'sev-crit' : worst === 'warn' ? 'sev-warn' : 'sev-info');
+      badge.textContent = sevs.map(s => s === 'crit' ? 'CRIT' : s === 'warn' ? 'WARN' : 'PASS').join(' / ');
+      row.appendChild(left);
+      row.appendChild(badge);
+      section.appendChild(row);
+    });
+    el.appendChild(section);
+  });
+}
+
+renderNav();
+renderChecks();
+</script>
+</body>
+</html>
